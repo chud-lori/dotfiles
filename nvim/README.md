@@ -5,6 +5,7 @@ This repository contains my personal Neovim configuration, managed with `lazy.nv
 ## Features
 
 *   **Plugin Management:** `lazy.nvim` for easy plugin management.
+*   **Dashboard:** `alpha-nvim` with a custom **NEOVIM ASCII banner**, quick-access **buttons**, and **MRU (recent files)**.
 *   **File Explorer:** `nvim-tree` for a modern file system explorer.
 *   **LSP Support:** Language Server Protocol (LSP) integration with `nvim-lspconfig` and `mason.nvim` for intelligent code completion, diagnostics, and more.
 *   **Formatting & Linting:** Automated code formatting with `conform.nvim` and linting with `nvim-lint`.
@@ -55,7 +56,7 @@ Before setting up these dotfiles, ensure you have the following installed:
     # On Ubuntu/Debian
     sudo apt-get install clangd
     ```
-*   **`nvim-web-devicons` compatible font:** For proper display of file icons in `nvim-tree` and `lualine`. (e.g., [Nerd Fonts](https://www.nerdfonts.com/))
+*   **`nvim-web-devicons` compatible font:** For proper display of file icons in `nvim-tree`, `lualine`, and `alpha-nvim`. (e.g., [Nerd Fonts](https://www.nerdfonts.com/))
 
 ### Installation
 
@@ -117,6 +118,22 @@ This configuration uses `<leader>` as the primary key for custom keybindings. By
 *   `<leader>fb`: List open buffers.
 *   `<leader>fh`: Find help tags.
 
+### Alpha (Dashboard)
+
+The startup dashboard powered by `alpha-nvim` includes:
+
+*   **Header:** Custom NEOVIM ASCII banner.
+*   **Buttons:**
+    *   `f`: Find File (`Telescope find_files`)
+    *   `g`: Live Grep (`Telescope live_grep`)
+    *   `n`: New File
+    *   `c`: Edit Neovim Config
+    *   `z`: Edit Zsh Config
+    *   `w`: Jump to Work Repo
+    *   `q`: Quit Neovim
+*   **MRU (Most Recently Used):** Quick access to recent files.
+*   **Footer:** Shows total plugins loaded and startup time.
+
 ### Other
 *   There are no other keymaps to list
 
@@ -125,5 +142,7 @@ This configuration uses `<leader>` as the primary key for custom keybindings. By
 *   **Options:** General Neovim options are configured in `lua/config/options.lua`.
 *   **Keymaps:** Custom keybindings are defined in `lua/config/keymaps.lua`.
 *   **Plugins:** Plugin configurations are located in `lua/plugins/` directory. Each plugin has its own file for easy modification.
+*   **Dashboard (`alpha-nvim`):** Located in `lua/plugins/alpha-nvim.lua`. Customize the header, buttons, and footer to your liking.
 
 Feel free to explore and modify these files to tailor Neovim to your preferences.
+
