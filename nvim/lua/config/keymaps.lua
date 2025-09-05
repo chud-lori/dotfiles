@@ -38,3 +38,8 @@ keymap.set('n', '<leader>n', ':NvimTreeFindFile<CR>', { desc = 'Find current fil
 
 keymap.set("n", "<leader>gb", ":GitBlameToggle<CR>", { desc = "Toggle inline git blame" })
 
+-- Commenting
+keymap.set("n", "<leader>/", function() require("Comment.api").toggle.linewise.current() end, { desc = "Toggle comment" })
+keymap.set("v", "<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", { desc = "Toggle comment" })
+
+

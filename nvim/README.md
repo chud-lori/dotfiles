@@ -14,6 +14,11 @@ This repository contains my personal Neovim configuration, managed with `lazy.nv
 *   **Colorscheme:** `tokyonight.nvim` for a beautiful dark theme.
 *   **Status Line:** `lualine.nvim` for a highly customizable and informative status line.
 *   **Git Integration:** `gitsigns.nvim` for Git status in the sign column and `git-blame.nvim` for inline blame information.
+*   **Keymap Helper:** `which-key.nvim` to display a popup with keybindings.
+*   **Editing Enhancements:**
+    *   `nvim-autopairs` for automatic bracket and quote closing.
+    *   `Comment.nvim` for easy code commenting.
+    *   `nvim-surround` for quickly adding/changing/deleting surrounding pairs of characters.
 
 ## Setup
 
@@ -88,12 +93,22 @@ Before setting up these dotfiles, ensure you have the following installed:
 
 ## Keymaps
 
-This configuration uses `<leader>` as the primary key for custom keybindings. By default, `<leader>` is set to `\` (backslash). You can change this in `lua/config/keymaps.lua` if desired.
+This configuration uses `<leader>` as the primary key for custom keybindings. By default, `<leader>` is set to ` ` (space).
+
+### Keymap Helper (`which-key.nvim`)
+
+This configuration includes `which-key.nvim`, which is a huge help for remembering keymaps.
+
+When you press the `<leader>` key (spacebar) in Normal mode, a popup will appear, showing you all the possible keybindings that follow. For example, if you press `<leader>` and then `f`, it will show you the Telescope file-finding options. This makes discovering and learning your keymaps much easier.
 
 ### Nvim-tree
 
 *   `<C-b>`: Toggle NvimTree file explorer.
 *   `<leader>n`: Find the current file in NvimTree.
+
+### Commenting
+
+*   `<leader>/`: Toggle comment for the current line or visual selection.
 
 ### LSP (Language Server Protocol)
 
@@ -134,9 +149,6 @@ The startup dashboard powered by `alpha-nvim` includes:
 *   **MRU (Most Recently Used):** Quick access to recent files.
 *   **Footer:** Shows total plugins loaded and startup time.
 
-### Other
-*   There are no other keymaps to list
-
 ## Customization
 
 *   **Options:** General Neovim options are configured in `lua/config/options.lua`.
@@ -145,4 +157,3 @@ The startup dashboard powered by `alpha-nvim` includes:
 *   **Dashboard (`alpha-nvim`):** Located in `lua/plugins/alpha-nvim.lua`. Customize the header, buttons, and footer to your liking.
 
 Feel free to explore and modify these files to tailor Neovim to your preferences.
-

@@ -20,20 +20,21 @@ return {
     -- Color scheme
     { require("plugins.colorscheme") },
 
-    -- New: Lualine for a beautiful status line
+    -- UI
     { require("plugins.lualine") },
+    { require("plugins.alpha-nvim") },
+    { require("plugins.which-key") },
 
-    -- New: Gitsigns for Git status in the sign column
+    -- Git
     { require("plugins.gitsigns") },
-
-    -- New: Git Blame for inline blame information
     { require("plugins.git_blame") },
 
-    -- Alpha Nvim for dashboard
-    { require("plugins.alpha-nvim") },
+    -- Utility
+    { require("plugins.autopairs") },
+    { require("plugins.comment") },
+    { require("plugins.surround") },
+
 
     -- Java Development Tools Language Server
-    { "mfussenegger/nvim-jdtls" },
+    -- { "mfussenegger/nvim-jdtls" },
 }
-
-
