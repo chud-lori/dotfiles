@@ -5,7 +5,7 @@ return {
         require('lualine').setup({
             options = {
                 icons_enabled = true,
-                theme = 'auto', -- or 'tokyonight' for a consistent look
+                theme = 'catppuccin', -- or 'tokyonight' for a consistent look
             },
             -- Configuration to display file location in the status line (commented out)
             -- sections = {

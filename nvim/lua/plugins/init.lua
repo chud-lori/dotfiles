@@ -33,6 +33,7 @@ return {
     { require("plugins.autopairs") },
     { require("plugins.comment") },
     { require("plugins.surround") },
+    { require("plugins.treesitter") },
 
 
     -- Java Development Tools Language Server

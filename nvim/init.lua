@@ -21,7 +21,7 @@ require("lazy").setup("plugins", {
   dev = {
     -- This ensures the colorscheme is set only after lazy.nvim is done
     setup = function()
-      vim.cmd [[colorscheme tokyonight]]
+      vim.cmd [[colorscheme catppuccin-macchiato]]
     end,
   },
 })
