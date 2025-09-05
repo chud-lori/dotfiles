@@ -19,7 +19,7 @@ return {
 
     -- 🖱️ Buttons
     dashboard.section.buttons.val = {
-      dashboard.button("f", "  Find File", ":Telescope find_files<CR>"),
+      dashboard.button("f", "  Find File", ":T.find_files<CR>"),
       dashboard.button("g", "  Live Grep", ":Telescope live_grep<CR>"),
       dashboard.button("r", "  Recent Files", ":Telescope oldfiles<CR>"),
       dashboard.button("p", "  Projects", ":Telescope projects<CR>"),
