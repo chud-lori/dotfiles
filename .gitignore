@@ -1,0 +1,4 @@
+# Ignore undo files but keep the folder
+nvim/lua/config/undodir/*
+!nvim/lua/config/undodir/.gitkeep
+
