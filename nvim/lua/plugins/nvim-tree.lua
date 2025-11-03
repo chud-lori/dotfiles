@@ -11,7 +11,8 @@ return {
                 width = 30,
             },
             filters = {
-                dotfiles = true,
+                dotfiles = false,
+                git_ignored = false,
             },
             update_focused_file = {
                 enable = true,
