@@ -41,3 +41,12 @@ opt.hlsearch = true        -- Highlight all search matches
 -- Apply the color scheme
 -- vim.cmd [[colorscheme tokyonight]]
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("TrimTrailingWhitespace", { clear = true }),
+  pattern = "*",
+  callback = function()
+    -- Substitute command: Delete all whitespace (\s+) at the end of a line ($).
+    -- 'e' flag prevents an error if no match is found.
+    vim.cmd [[%s/\s\+$//e]]
+  end,
+})
