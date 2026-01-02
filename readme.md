@@ -7,8 +7,34 @@ This repository contains my personal dotfiles for Neovim and terminal setup, des
 ```
 dotfiles/
 ├── nvim/             # Neovim configuration
-└── terminal/         # Terminal setup (Zsh, Oh My Posh, Zellij, Ghostty)
+└── terminal/         # Terminal setup (Zsh, Oh My Posh, Zellij, Ghostty) - Git submodule
 ```
+
+## Getting Started
+
+### Cloning the Repository
+
+Since the `terminal/` directory is a Git submodule, you need to clone this repository with submodule initialization:
+
+```bash
+git clone --recurse-submodules <repository-url>
+cd dotfiles
+```
+
+If you've already cloned the repository without submodules, you can initialize them afterwards:
+
+```bash
+git submodule update --init --recursive
+```
+
+### Setup Instructions
+
+Each subdirectory contains its own README with detailed setup instructions:
+
+- **Neovim**: See `nvim/README.md` for Neovim configuration setup
+- **Terminal**: See `terminal/readme.md` for terminal environment setup
+
+Please follow the instructions in each README to set up the respective components.
 
 ## Neovim Configuration
 
@@ -24,14 +50,4 @@ The `terminal/` directory contains all necessary scripts and configuration files
 -   **Emulator**: Ghostty for a fast and customizable terminal interface.
 -   **Dependencies**: Managed via Homebrew, including essential fonts.
 
-### Installation
-
-The `terminal/setup.sh` script automates the process of installing dependencies via Homebrew, linking configuration files, and updating your `.zshrc` to integrate the terminal components.
-
-To set up your terminal, run:
-
-```bash
-bash terminal/setup.sh
-```
-
-After running the script, restart your terminal or `source ~/.zshrc` for changes to take effect. For more detailed information on each component and their specific configurations, refer to `terminal/readme.md`.
+For detailed installation instructions and setup, refer to `terminal/readme.md`.
