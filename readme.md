@@ -17,7 +17,7 @@ dotfiles/
 Since the `terminal/` directory is a Git submodule, you need to clone this repository with submodule initialization:
 
 ```bash
-git clone --recurse-submodules <repository-url>
+git clone --recurse-submodules `https://github.com/chud-lori/dotfiles`
 cd dotfiles
 ```
 
