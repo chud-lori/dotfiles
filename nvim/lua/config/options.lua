@@ -37,6 +37,12 @@ opt.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
 opt.backup = false         -- Do not create backup files
 opt.swapfile = false       -- Do not create swap files
 opt.hlsearch = true        -- Highlight all search matches
+opt.scrolloff = 8          -- Keep 8 lines above/below cursor when scrolling
+opt.sidescrolloff = 8      -- Keep 8 columns left/right of cursor when scrolling
+opt.wrap = false           -- Disable line wrapping
+opt.updatetime = 200       -- Faster CursorHold events (for LSP diagnostics)
+opt.timeoutlen = 300       -- Faster keymap timeout
+opt.pumheight = 10         -- Max items in completion popup
 
 -- Apply the color scheme
 -- vim.cmd [[colorscheme tokyonight]]

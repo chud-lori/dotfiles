@@ -39,16 +39,45 @@ return {
       -- Manually set up each LSP server.
       -- This is more stable than relying on the automation that was causing the crash.
       lspconfig.pyright.setup({ on_attach = on_attach, capabilities = capabilities })
-      lspconfig.clangd.setup({ on_attach = on_attach, capabilities = capabilities })
+      lspconfig.clangd.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { "clangd", "--background-index", "--clang-tidy", "--header-insertion=iwyu", "--completion-style=detailed" },
+      })
       lspconfig.ts_ls.setup({ on_attach = on_attach, capabilities = capabilities })
       lspconfig.gopls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
           gopls = {
-            analyses = { unusedparams = true },
+            analyses = { unusedparams = true, shadow = true },
             staticcheck = true,
             gofumpt = true,
+            usePlaceholders = true,
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+          },
+        },
+      })
+      lspconfig.rust_analyzer.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+          ["rust-analyzer"] = {
+            cargo = { allFeatures = true },
+            checkOnSave = { command = "clippy" },
+            inlayHints = {
+              bindingModeHints = { enable = true },
+              chainingHints = { enable = true },
+              closingBraceHints = { enable = true },
+              parameterHints = { enable = true },
+              typeHints = { enable = true },
+            },
           },
         },
       })

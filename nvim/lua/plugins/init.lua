@@ -34,8 +34,16 @@ return {
     { require("plugins.comment") },
     { require("plugins.surround") },
     { require("plugins.treesitter") },
+    { require("plugins.indent-blankline") },
+    { require("plugins.flash") },
 
+    -- Diagnostics & Code Navigation
+    { require("plugins.trouble") },
+    { require("plugins.todo-comments") },
 
-    -- Java Development Tools Language Server
-    -- { "mfussenegger/nvim-jdtls" },
+    -- Git TUI
+    { require("plugins.lazygit") },
+
+    -- LSP Progress Notifications
+    { require("plugins.fidget") },
 }
