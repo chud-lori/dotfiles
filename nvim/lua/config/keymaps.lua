@@ -66,4 +66,3 @@ keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics<CR>", { desc = "Find d
 keymap.set("n", "<leader>fr", "<cmd>Telescope lsp_references<CR>", { desc = "Find references" })
 keymap.set("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "Find symbols" })
 
-

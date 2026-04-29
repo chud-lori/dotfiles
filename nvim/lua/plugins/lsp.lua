@@ -4,6 +4,36 @@ return {
     "williamboman/mason.nvim",
     config = function()
       require("mason").setup()
+
+      local registry = require("mason-registry")
+      local packages = {
+        "black",
+        "clang-format",
+        "clangd",
+        "eslint_d",
+        "gofumpt",
+        "gopls",
+        "prettier",
+        "pyright",
+        "ruff",
+        "rust-analyzer",
+        "typescript-language-server",
+      }
+
+      local function ensure_installed()
+        for _, name in ipairs(packages) do
+          local ok, pkg = pcall(registry.get_package, name)
+          if ok and not pkg:is_installed() then
+            pkg:install()
+          end
+        end
+      end
+
+      if registry.refresh then
+        registry.refresh(ensure_installed)
+      else
+        ensure_installed()
+      end
     end,
   },
 

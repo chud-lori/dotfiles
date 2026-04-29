@@ -16,13 +16,14 @@ This repository contains my personal Neovim configuration, managed with `lazy.nv
 *   **Status Line:** `lualine.nvim` for a highly customizable and informative status line.
 *   **Git Integration:** `gitsigns.nvim` and `git-blame.nvim` for seamless Git workflows.
 *   **Keymap Helper:** `which-key.nvim` to display a popup with keybindings.
+*   **Markdown Render:** `render-markdown.nvim` for inline rendered Markdown preview inside Neovim.
 *   **Editing Enhancements:**
     *   `nvim-autopairs` for automatic bracket and quote closing.
     *   `Comment.nvim` for easy code commenting.
     *   `nvim-surround` for quickly manipulating surrounding pairs of characters.
 
 ## Setup
-(Setup instructions remain the same)
+On first launch, `lazy.nvim` installs the plugins and `mason.nvim` bootstraps the configured LSP servers, formatters, and linters automatically. Keep Neovim open until the initial Mason installs finish, then restart once.
 
 ## Core Editing Plugins
 
@@ -57,6 +58,22 @@ This section explains the key plugins that enhance the day-to-day editing experi
     *   **`ys` - You Surround (Add Surrounding):** This one is followed by a motion or text object.
         *   **Example:** Change `hello` to `"hello"`.
         *   **Action:** With your cursor on the word `hello`, type `ysiw"` (`iw` is the text object for "inner word").
+
+### `render-markdown.nvim` (Inline Markdown Render)
+
+*   **What it is:** Renders Markdown directly inside the Neovim buffer — no browser, no split window needed. Headers, bold/italic, tables, code blocks, checkboxes, and bullet points are all styled visually, similar to VSCode's Markdown preview but without leaving the editor.
+*   **How to use it:** Rendering activates automatically when you open a `.md` file.
+
+    | Keymap / Command          | Description                        |
+    |---------------------------|------------------------------------|
+    | `<leader>mp`              | Toggle rendered view on/off        |
+    | `:RenderMarkdown toggle`  | Toggle rendered view on/off        |
+    | `:RenderMarkdown enable`  | Enable rendering                   |
+    | `:RenderMarkdown disable` | Disable rendering                  |
+
+*   **Notes:**
+    *   No external dependencies — no Node.js or browser required.
+    *   Requires `nvim-treesitter` with the `markdown` parser (installed automatically).
 
 ## Keymaps
 (Keymap sections remain the same)
