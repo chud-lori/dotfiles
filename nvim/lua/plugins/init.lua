@@ -21,6 +21,7 @@ return {
     { require("plugins.colorscheme") },
 
     -- UI
+    { require("plugins.bufferline") },
     { require("plugins.lualine") },
     { require("plugins.alpha-nvim") },
     { require("plugins.which-key") },
@@ -34,8 +35,25 @@ return {
     { require("plugins.comment") },
     { require("plugins.surround") },
     { require("plugins.treesitter") },
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+        ft = { "markdown" },
+        opts = {},
+        keys = {
+            { "<leader>mp", "<cmd>RenderMarkdown toggle<cr>", ft = "markdown", desc = "Toggle Markdown Render" },
+        },
+    },
+    { require("plugins.indent-blankline") },
+    { require("plugins.flash") },
 
+    -- Diagnostics & Code Navigation
+    { require("plugins.trouble") },
+    { require("plugins.todo-comments") },
 
-    -- Java Development Tools Language Server
-    -- { "mfussenegger/nvim-jdtls" },
+    -- Git TUI
+    { require("plugins.lazygit") },
+
+    -- LSP Progress Notifications
+    { require("plugins.fidget") },
 }
