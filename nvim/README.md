@@ -76,7 +76,99 @@ This section explains the key plugins that enhance the day-to-day editing experi
     *   Requires `nvim-treesitter` with the `markdown` parser (installed automatically).
 
 ## Keymaps
-(Keymap sections remain the same)
+
+Leader key: `Space`
+
+### General
+
+| Keymap | Action |
+|--------|--------|
+| `jk` | Exit insert mode |
+| `<leader>nh` | Clear search highlights |
+| `<leader>+` | Increment number |
+| `<leader>-` | Decrement number |
+
+### Window Management
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>sv` | Split window vertically |
+| `<leader>sh` | Split window horizontally |
+| `<leader>se` | Equalize split sizes |
+| `<leader>sq` | Close current split |
+
+### Tab Management
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>to` | Open new tab |
+| `<leader>tq` | Close current tab |
+| `<leader>tn` | Next tab |
+| `<leader>tp` | Previous tab |
+| `<leader>tf` | Open current buffer in a new tab |
+
+### Navigation And Search
+
+| Keymap | Action |
+|--------|--------|
+| `<C-b>` | Toggle NvimTree |
+| `<leader>n` | Reveal current file in NvimTree |
+| `<leader>ff` | Find files |
+| `<leader>fg` | Live grep |
+| `<leader>fb` | Find open buffers |
+| `<leader>fh` | Find help tags |
+| `<leader>fd` | Find diagnostics |
+| `<leader>fr` | Find LSP references |
+| `<leader>fs` | Find document symbols |
+| `s` | Flash jump |
+| `S` | Flash Treesitter jump |
+| `r` | Remote Flash in operator-pending mode |
+| `R` | Flash Treesitter search |
+
+### Buffers And Git
+
+| Keymap | Action |
+|--------|--------|
+| `<S-l>` | Next buffer |
+| `<S-h>` | Previous buffer |
+| `<leader>bd` | Close buffer |
+| `<leader>gb` | Toggle inline git blame |
+| `<leader>gg` | Open LazyGit |
+
+### Diagnostics And TODOs
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>xx` | Toggle Trouble diagnostics |
+| `<leader>xb` | Buffer diagnostics in Trouble |
+| `<leader>xs` | Symbols in Trouble |
+| `<leader>xq` | Quickfix list in Trouble |
+| `<leader>td` | Show TODOs in Trouble |
+| `]t` | Next TODO |
+| `[t` | Previous TODO |
+
+### Editing
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>/` | Toggle comment |
+| `<leader>mp` | Toggle Markdown render |
+
+### LSP
+
+These are buffer-local and become available when an LSP server attaches to the file.
+
+| Keymap | Action |
+|--------|--------|
+| `gD` | Go to declaration |
+| `gd` | Go to definition |
+| `gi` | Go to implementation |
+| `gr` | List references |
+| `K` | Hover documentation |
+| `<C-k>` | Signature help |
+| `<leader>rn` | Rename symbol |
+| `<leader>ca` | Code action |
+| `<leader>f` | Format buffer |
 
 ## Customization
 (Customization section remains the same)
