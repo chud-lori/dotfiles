@@ -183,4 +183,67 @@ These are buffer-local and become available when an LSP server attaches to the f
 | `<leader>f` | Format buffer |
 
 ## Customization
-(Customization section remains the same)
+
+The config is organized so the main customization points are easy to find.
+
+### Core Files
+
+| File | Purpose |
+|------|---------|
+| `init.lua` | Entry point that loads options, keymaps, and plugins |
+| `lua/config/options.lua` | Editor behavior such as tabs, scroll offset, wrapping, and popup timing |
+| `lua/config/keymaps.lua` | Global keybindings |
+| `lua/plugins/init.lua` | Main plugin list |
+
+### Add Or Remove Plugins
+
+Most plugins live in their own file under `lua/plugins/`.
+
+To add a plugin:
+1. Create a new plugin spec in `lua/plugins/`.
+2. Register it from `lua/plugins/init.lua` if this config uses explicit `require(...)` loading.
+3. Open Neovim and let `lazy.nvim` install it.
+
+To remove a plugin:
+1. Delete its entry from `lua/plugins/init.lua`.
+2. Delete the plugin spec file if it has one.
+3. Restart Neovim and clean up the lockfile/plugin install if needed.
+
+### Change Keymaps
+
+Global mappings are defined in `lua/config/keymaps.lua`.
+
+Examples:
+- change the leader key by editing `vim.g.mapleader`
+- change buffer navigation by editing `<S-h>` and `<S-l>`
+- add new shortcuts for Telescope, Git, or diagnostics in the same file
+
+LSP-specific mappings are attached in `lua/plugins/lsp.lua` when a language server starts for the current buffer.
+
+### Change Appearance
+
+Theme and UI plugins are configured in `lua/plugins/`.
+
+Common places to tweak:
+- `lua/plugins/colorscheme.lua`: colorscheme flavor and integrations
+- `lua/plugins/lualine.lua`: statusline sections
+- `lua/plugins/bufferline.lua`: open-file bar behavior
+- `lua/plugins/indent-blankline.lua`: indent guides and scope markers
+- `lua/plugins/alpha-nvim.lua`: dashboard banner and startup buttons
+
+### Change Language Tooling
+
+Language servers are configured in `lua/plugins/lsp.lua`.
+Formatters and linters are configured in `lua/plugins/formatting_linting.lua`.
+Treesitter parsers are configured in `lua/plugins/treesitter.lua`.
+
+This is where you would:
+- add a new LSP server
+- change formatter or linter mappings for a filetype
+- adjust save-time formatting behavior
+- add more Treesitter parsers
+
+### Reproducibility Notes
+
+Plugin versions are pinned in `lazy-lock.json`.
+If you intentionally add or upgrade plugins, refresh the lockfile so a new machine installs the same versions you tested.
