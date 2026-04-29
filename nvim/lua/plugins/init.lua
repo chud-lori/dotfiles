@@ -21,6 +21,7 @@ return {
     { require("plugins.colorscheme") },
 
     -- UI
+    { require("plugins.bufferline") },
     { require("plugins.lualine") },
     { require("plugins.alpha-nvim") },
     { require("plugins.which-key") },

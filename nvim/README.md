@@ -13,6 +13,7 @@ This repository contains my personal Neovim configuration, managed with `lazy.nv
 *   **Autocompletion & Snippets:** `nvim-cmp` and `LuaSnip` for a powerful autocompletion engine.
 *   **Fuzzy Finder:** `telescope.nvim` for quick file navigation and text searching.
 *   **Colorscheme:** `catppuccin/nvim` for a beautiful, high-contrast dark theme.
+*   **Buffer Bar:** `bufferline.nvim` for a VS Code-style horizontal list of open files.
 *   **Status Line:** `lualine.nvim` for a highly customizable and informative status line.
 *   **Git Integration:** `gitsigns.nvim` and `git-blame.nvim` for seamless Git workflows.
 *   **Keymap Helper:** `which-key.nvim` to display a popup with keybindings.
@@ -74,6 +75,17 @@ This section explains the key plugins that enhance the day-to-day editing experi
 *   **Notes:**
     *   No external dependencies — no Node.js or browser required.
     *   Requires `nvim-treesitter` with the `markdown` parser (installed automatically).
+
+### `bufferline.nvim` (Open File Bar)
+
+*   **What it is:** Adds a horizontal buffer bar so open files are visible at the top of Neovim, closer to the VS Code workflow.
+*   **How to use it:** The bar updates automatically as buffers open and close.
+
+    | Keymap | Description |
+    |--------|-------------|
+    | `<S-l>` | Move to next buffer |
+    | `<S-h>` | Move to previous buffer |
+    | `<leader>bd` | Close current buffer |
 
 ## Keymaps
 
