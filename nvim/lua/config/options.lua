@@ -7,7 +7,7 @@ opt.number = true
 
 -- Search behavior
 opt.ignorecase = true -- ignore case when searching
-opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
+opt.smartcase = false -- keep searches case-insensitive even when the query contains uppercase
 
 -- Clipboard
 opt.clipboard:append("unnamedplus") -- use system clipboard as default register
