@@ -37,47 +37,42 @@ return {
     end,
   },
 
-  -- This plugin is the bridge between mason and nvim-lspconfig
+  -- Bridge between mason and nvim-lspconfig
   {
     "williamboman/mason-lspconfig.nvim",
-    -- We don't need a config function here, as lspconfig will handle the setup.
   },
 
-  -- This is the main LSP configuration plugin
+  -- LSP configuration using the new vim.lsp.config API (Neovim 0.11+)
   {
     "neovim/nvim-lspconfig",
     dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
     config = function()
-      local lspconfig = require("lspconfig")
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      -- Common settings for all LSP servers
-      local on_attach = function(client, bufnr)
-        local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-        local opts = { noremap = true, silent = true }
-        buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-        buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-        buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-        buf_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-        buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-        buf_set_keymap('n', '<space>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
-        buf_set_keymap('n', '<space>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-        buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
-        buf_set_keymap('n', '<space>f', '<Cmd>lua vim.lsp.buf.format()<CR>', opts)
-      end
+      -- Buffer-local keymaps when an LSP attaches
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local opts = { buffer = args.buf, noremap = true, silent = true }
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+          vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+          vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+          vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, opts)
+          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+          vim.keymap.set("n", "<space>f", function() vim.lsp.buf.format() end, opts)
+        end,
+      })
 
-      -- Manually set up each LSP server.
-      -- This is more stable than relying on the automation that was causing the crash.
-      lspconfig.pyright.setup({ on_attach = on_attach, capabilities = capabilities })
-      lspconfig.clangd.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
+      -- Default capabilities for every server
+      vim.lsp.config("*", { capabilities = capabilities })
+
+      vim.lsp.config("clangd", {
         cmd = { "clangd", "--background-index", "--clang-tidy", "--header-insertion=iwyu", "--completion-style=detailed" },
       })
-      lspconfig.ts_ls.setup({ on_attach = on_attach, capabilities = capabilities })
-      lspconfig.gopls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
+
+      vim.lsp.config("gopls", {
         settings = {
           gopls = {
             analyses = { unusedparams = true, shadow = true },
@@ -94,9 +89,8 @@ return {
           },
         },
       })
-      lspconfig.rust_analyzer.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
+
+      vim.lsp.config("rust_analyzer", {
         settings = {
           ["rust-analyzer"] = {
             cargo = { allFeatures = true },
@@ -111,6 +105,8 @@ return {
           },
         },
       })
+
+      vim.lsp.enable({ "pyright", "clangd", "ts_ls", "gopls", "rust_analyzer" })
     end,
   },
 }
