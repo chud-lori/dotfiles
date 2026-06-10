@@ -1,39 +1,40 @@
+local mason_packages = {
+  "black",
+  "clang-format",
+  "clangd",
+  "eslint_d",
+  "gofumpt",
+  "gopls",
+  "google-java-format",
+  "jdtls",
+  "kotlin-language-server",
+  "ktlint",
+  "prettier",
+  "pyright",
+  "ruff",
+  "rust-analyzer",
+  "typescript-language-server",
+}
+
 return {
   -- This plugin manages the installation of LSP servers, linters, and formatters
   {
     "williamboman/mason.nvim",
     config = function()
       require("mason").setup()
+    end,
+  },
 
-      local registry = require("mason-registry")
-      local packages = {
-        "black",
-        "clang-format",
-        "clangd",
-        "eslint_d",
-        "gofumpt",
-        "gopls",
-        "prettier",
-        "pyright",
-        "ruff",
-        "rust-analyzer",
-        "typescript-language-server",
-      }
-
-      local function ensure_installed()
-        for _, name in ipairs(packages) do
-          local ok, pkg = pcall(registry.get_package, name)
-          if ok and not pkg:is_installed() then
-            pkg:install()
-          end
-        end
-      end
-
-      if registry.refresh then
-        registry.refresh(ensure_installed)
-      else
-        ensure_installed()
-      end
+  -- Installs Mason packages without running custom registry install code on startup
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    config = function()
+      require("mason-tool-installer").setup({
+        ensure_installed = mason_packages,
+        auto_update = false,
+        run_on_start = true,
+      })
     end,
   },
 
@@ -48,6 +49,21 @@ return {
     dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local kotlin_root_markers = {
+        "settings.gradle",
+        "settings.gradle.kts",
+        "build.gradle",
+        "build.gradle.kts",
+        "pom.xml",
+        ".git",
+      }
+
+      vim.filetype.add({
+        extension = {
+          kt = "kotlin",
+          kts = "kotlin",
+        },
+      })
 
       -- Buffer-local keymaps when an LSP attaches
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -90,6 +106,15 @@ return {
         },
       })
 
+      vim.lsp.config("kotlin_language_server", {
+        cmd = { "kotlin-language-server" },
+        filetypes = { "kotlin" },
+        root_dir = function(bufnr, on_dir)
+          local fname = vim.api.nvim_buf_get_name(bufnr)
+          on_dir(vim.fs.root(fname, kotlin_root_markers) or vim.fn.getcwd())
+        end,
+      })
+
       vim.lsp.config("rust_analyzer", {
         settings = {
           ["rust-analyzer"] = {
@@ -106,7 +131,7 @@ return {
         },
       })
 
-      vim.lsp.enable({ "pyright", "clangd", "ts_ls", "gopls", "rust_analyzer" })
+      vim.lsp.enable({ "pyright", "clangd", "ts_ls", "gopls", "rust_analyzer", "kotlin_language_server" })
     end,
   },
 }

@@ -14,6 +14,8 @@ return {
                     typescript = { "prettier" },
                     javascriptreact = { "prettier" },
                     typescriptreact = { "prettier" },
+                    java = { "google_java_format" },
+                    kotlin = { "ktlint" },
                     json = { "prettier" },
                     yaml = { "prettier" },
                     markdown = { "prettier" },
@@ -25,7 +27,7 @@ return {
                 },
             })
             vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-                pattern = { "*.py", "*.go", "*.rs", "*.c", "*.cpp", "*.h", "*.js", "*.ts", "*.jsx", "*.tsx", "*.json", "*.yaml", "*.yml", "*.md" },
+                pattern = { "*.py", "*.go", "*.rs", "*.c", "*.cpp", "*.h", "*.js", "*.ts", "*.jsx", "*.tsx", "*.java", "*.kt", "*.kts", "*.json", "*.yaml", "*.yml", "*.md" },
                 callback = function(args)
                     require("conform").format({ bufnr = args.buf, lsp_format = "fallback", quiet = true })
                 end,

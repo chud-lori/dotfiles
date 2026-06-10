@@ -7,6 +7,7 @@ return {
 
     -- LSP, Mason, and other core development tools
     { require("plugins.lsp") },
+    { require("plugins.java") },
 
     -- For formatting and linting
     { require("plugins.formatting_linting") },

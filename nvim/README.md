@@ -24,7 +24,76 @@ This repository contains my personal Neovim configuration, managed with `lazy.nv
     *   `nvim-surround` for quickly manipulating surrounding pairs of characters.
 
 ## Setup
-On first launch, `lazy.nvim` installs the plugins and `mason.nvim` bootstraps the configured LSP servers, formatters, and linters automatically. Keep Neovim open until the initial Mason installs finish, then restart once.
+On first launch, `lazy.nvim` installs Neovim plugins. External language tools are installed by `mason.nvim` and `mason-tool-installer.nvim`.
+
+Run this after copying the config to `~/.config/nvim`:
+
+```vim
+:Lazy sync
+```
+
+Restart Neovim, then check Mason:
+
+```vim
+:Mason
+```
+
+If Mason does not install a tool automatically, install it manually with `:MasonInstall`.
+
+### Kotlin And Java Setup
+
+This config supports Kotlin boilerplate projects and Java project browsing/editing.
+
+Required Mason tools:
+
+```vim
+:MasonInstall kotlin-language-server ktlint jdtls google-java-format
+```
+
+Tool purpose:
+
+| Tool | Purpose |
+|------|---------|
+| `kotlin-language-server` | Kotlin LSP for completion, diagnostics, hover, rename, and navigation |
+| `ktlint` | Kotlin formatter |
+| `jdtls` | Java LSP for project navigation, diagnostics, imports, and code actions |
+| `google-java-format` | Java formatter |
+
+Verify Kotlin from a `.kt` or `.kts` file:
+
+```vim
+:set filetype?
+:echo executable("kotlin-language-server")
+:LspInfo
+```
+
+Expected:
+
+```text
+filetype=kotlin
+1
+kotlin_language_server attached
+```
+
+Verify Java from a `.java` file inside a Java project:
+
+```vim
+:set filetype?
+:echo executable("jdtls")
+:LspInfo
+```
+
+Expected:
+
+```text
+filetype=java
+1
+jdtls attached
+```
+
+For best Java detection, open files inside a project with at least one root marker such as `.git`, `pom.xml`, `build.gradle`, `build.gradle.kts`, `settings.gradle`, or `settings.gradle.kts`.
+
+If `executable(...)` returns `0`, the Mason tool is not installed or not visible on Neovim's `PATH`. Open `:Mason` or run the relevant `:MasonInstall ...` command again.
 
 ## Core Editing Plugins
 
