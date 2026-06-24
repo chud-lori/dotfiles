@@ -3,7 +3,11 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   event = "VimEnter",
   cond = function()
-    return vim.fn.argc() == 0
+    if vim.fn.argc() == 0 then
+      return true
+    end
+
+    return vim.fn.argc() == 1 and vim.fn.isdirectory(vim.fn.argv(0)) == 1
   end,
   config = function()
     local alpha = require("alpha")
@@ -26,7 +30,7 @@ return {
       dashboard.button("g", "  Live Grep", ":Telescope live_grep<CR>"),
       dashboard.button("r", "  Recent Files", ":Telescope oldfiles<CR>"),
       dashboard.button("p", "  Projects", ":Telescope projects<CR>"),
-      dashboard.button("s", "󱂬  Restore Session", ":SessionRestore<CR>"),
+      dashboard.button("s", "󱂬  Restore Session", ":lua require('persistence').load()<CR>"),
       dashboard.button("n", "  New File", ":ene <BAR> startinsert<CR>"),
       dashboard.button("c", "  Config", ":e ~/.config/nvim/init.lua<CR>"),
       dashboard.button("z", "  Zsh Config", ":e ~/.zshrc<CR>"),

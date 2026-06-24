@@ -229,6 +229,14 @@ Leader key: `Space`
 | `r` | Remote Flash in operator-pending mode |
 | `R` | Flash Treesitter search |
 
+### Sessions
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>qs` | Restore session for the current directory |
+| `<leader>ql` | Restore last session |
+| `<leader>qd` | Stop saving the current session |
+
 ### Buffers And Git
 
 | Keymap | Action |
@@ -323,6 +331,9 @@ Common places to tweak:
 - `lua/plugins/bufferline.lua`: open-file bar behavior
 - `lua/plugins/indent-blankline.lua`: indent guides and scope markers
 - `lua/plugins/alpha-nvim.lua`: dashboard banner and startup buttons
+- `lua/plugins/persistence.lua`: session restore behavior for project workspaces
+
+Plain `nvim` opens only the Alpha welcome dashboard and does not restore project state. When opening a directory with `nvim .`, the config treats it as a project workspace: it changes Neovim's cwd to that directory, restores any saved session for that cwd, opens NvimTree, and shows the Alpha dashboard when there is no saved file state.
 
 ### Change Language Tooling
 

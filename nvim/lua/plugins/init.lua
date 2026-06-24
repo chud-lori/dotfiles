@@ -26,6 +26,7 @@ return {
     { require("plugins.lualine") },
     { require("plugins.alpha-nvim") },
     { require("plugins.which-key") },
+    { require("plugins.persistence") },
 
     -- Git
     { require("plugins.gitsigns") },

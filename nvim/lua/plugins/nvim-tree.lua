@@ -3,10 +3,40 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
-    cmd = { "NvimTreeToggle", "NvimTreeFindFile" },
+    cmd = { "NvimTreeOpen", "NvimTreeToggle", "NvimTreeFindFile" },
     keys = {
-        { "<C-b>", "<cmd>NvimTreeToggle<CR>", desc = "Toggle NvimTree" },
-        { "<leader>n", "<cmd>NvimTreeFindFile<CR>", desc = "Find current file in NvimTree" },
+        {
+            "<C-b>",
+            function()
+                local has_file_buffer = false
+                for _, buffer in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+                    if buffer.name ~= "" and vim.bo[buffer.bufnr].buftype == "" then
+                        has_file_buffer = true
+                        break
+                    end
+                end
+
+                if not vim.g.nvim_project_mode and not has_file_buffer then
+                    vim.notify("Open a project with `nvim .` before opening NvimTree", vim.log.levels.INFO)
+                    return
+                end
+
+                vim.cmd.NvimTreeToggle()
+            end,
+            desc = "Toggle NvimTree",
+        },
+        {
+            "<leader>n",
+            function()
+                if not vim.g.nvim_project_mode and vim.api.nvim_buf_get_name(0) == "" then
+                    vim.notify("Open a project with `nvim .` before using NvimTree", vim.log.levels.INFO)
+                    return
+                end
+
+                vim.cmd.NvimTreeFindFile()
+            end,
+            desc = "Find current file in NvimTree",
+        },
     },
     init = function()
         vim.g.loaded_netrw = 1
