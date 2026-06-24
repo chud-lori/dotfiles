@@ -3,9 +3,16 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
-    config = function()
+    cmd = { "NvimTreeToggle", "NvimTreeFindFile" },
+    keys = {
+        { "<C-b>", "<cmd>NvimTreeToggle<CR>", desc = "Toggle NvimTree" },
+        { "<leader>n", "<cmd>NvimTreeFindFile<CR>", desc = "Find current file in NvimTree" },
+    },
+    init = function()
         vim.g.loaded_netrw = 1
         vim.g.loaded_netrwPlugin = 1
+    end,
+    config = function()
         require("nvim-tree").setup({
             view = {
                 width = 30,
@@ -52,8 +59,5 @@ return {
                 },
             },
         })
-        vim.keymap.set('n', '<C-b>', ':NvimTreeToggle<CR>', { desc = 'Toggle NvimTree' })
-        vim.keymap.set('n', '<leader>n', ':NvimTreeFindFile<CR>', { desc = 'Find current file in NvimTree' })
     end,
 }
-

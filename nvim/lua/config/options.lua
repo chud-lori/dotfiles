@@ -41,7 +41,7 @@ opt.scrolloff = 8          -- Keep 8 lines above/below cursor when scrolling
 opt.sidescrolloff = 8      -- Keep 8 columns left/right of cursor when scrolling
 opt.wrap = false           -- Disable line wrapping
 opt.updatetime = 200       -- Faster CursorHold events (for LSP diagnostics)
-opt.timeoutlen = 300       -- Faster keymap timeout
+opt.timeoutlen = 700       -- Give multi-key mappings enough time to complete
 opt.pumheight = 10         -- Max items in completion popup
 
 -- Apply the color scheme

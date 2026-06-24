@@ -1,5 +1,6 @@
 return {
     "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         "L3MON4D3/LuaSnip",
@@ -18,7 +19,7 @@ return {
             }),
             snippet = {
                 expand = function(args)
-                    require("luasnip").jump(args.body)
+                    require("luasnip").lsp_expand(args.body)
                 end,
             },
         })
