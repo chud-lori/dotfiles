@@ -2,10 +2,14 @@ return {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.5",
     dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = "Telescope",
+    keys = {
+        { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find Files" },
+        { "<leader>fg", function() require("telescope.builtin").live_grep() end, desc = "Search text in project" },
+        { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Find open buffers" },
+        { "<leader>fh", function() require("telescope.builtin").help_tags() end, desc = "Find help tags" },
+    },
     config = function()
-        local telescope = require("telescope.builtin")
-        local keymap = vim.keymap
-
         require("telescope").setup({
             defaults = {
                 mappings = {
@@ -17,10 +21,5 @@ return {
                 },
             },
         })
-
-        keymap.set("n", "<leader>ff", telescope.find_files, { desc = "Find Files" })
-        keymap.set("n", "<leader>fg", telescope.live_grep, { desc = "Search text in project" })
-        keymap.set("n", "<leader>fb", telescope.buffers, { desc = "Find open buffers" })
-        keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "Find help tags" })
     end,
 }

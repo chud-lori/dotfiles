@@ -24,7 +24,7 @@ This repository contains my personal Neovim configuration, managed with `lazy.nv
     *   `nvim-surround` for quickly manipulating surrounding pairs of characters.
 
 ## Setup
-On first launch, `lazy.nvim` installs Neovim plugins. External language tools are installed by `mason.nvim` and `mason-tool-installer.nvim`.
+On first launch, `lazy.nvim` installs Neovim plugins. External language tools are managed by `mason.nvim`, but tool installation is intentionally manual so normal startup and file opening stay fast.
 
 Run this after copying the config to `~/.config/nvim`:
 
@@ -38,7 +38,13 @@ Restart Neovim, then check Mason:
 :Mason
 ```
 
-If Mason does not install a tool automatically, install it manually with `:MasonInstall`.
+Install the configured formatter, linter, and LSP tool set when needed:
+
+```vim
+:MasonToolsInstall
+```
+
+You can also install one tool at a time with `:MasonInstall`.
 
 ### Kotlin And Java Setup
 
@@ -103,7 +109,12 @@ This section explains the key plugins that enhance the day-to-day editing experi
 
 *   **What it is:** `nvim-treesitter` is a powerful code parsing engine. Instead of using simple patterns to guess what your code is, it builds a complete syntax tree, just like a compiler.
 *   **Main Benefit:** This results in far more accurate and detailed syntax highlighting. It can easily tell the difference between a variable, a function call, and a keyword, and color them differently, making code much easier to read and understand.
-*   **How to use it:** It works automatically! After installation, it downloads the correct parser for your programming language in the background. The enhanced highlighting will be applied as soon as the parser is ready.
+*   **How to use it:** Highlighting is automatic after the parser is installed. Parser auto-install is disabled to keep file opening fast, so install missing parsers intentionally:
+
+    ```vim
+    :TSInstall python
+    :TSInstall java
+    ```
 
 ### `nvim-autopairs` (Automatic Brackets and Quotes)
 
@@ -143,7 +154,7 @@ This section explains the key plugins that enhance the day-to-day editing experi
 
 *   **Notes:**
     *   No external dependencies — no Node.js or browser required.
-    *   Requires `nvim-treesitter` with the `markdown` parser (installed automatically).
+    *   Requires `nvim-treesitter` with the `markdown` and `markdown_inline` parsers. Install them with `:TSInstall markdown markdown_inline`.
 
 ### `bufferline.nvim` (Open File Bar)
 
@@ -155,6 +166,17 @@ This section explains the key plugins that enhance the day-to-day editing experi
     | `<S-l>` | Move to next buffer |
     | `<S-h>` | Move to previous buffer |
     | `<leader>bd` | Close current buffer |
+
+### Startup Behavior
+
+The config avoids expensive install checks during normal startup:
+
+| Area | Behavior |
+|------|----------|
+| Mason tools | Installed manually with `:MasonToolsInstall` or `:MasonInstall` |
+| Treesitter parsers | Installed manually with `:TSInstall <parser>` |
+| Dashboard | Loads only for empty `nvim` starts, not when opening a file |
+| Picker/file tree/git tools | Loaded on their keymaps or commands |
 
 ## Keymaps
 
@@ -201,6 +223,7 @@ Leader key: `Space`
 | `<leader>fd` | Find diagnostics |
 | `<leader>fr` | Find LSP references |
 | `<leader>fs` | Find document symbols |
+| `pd` | Preview documentation hover |
 | `s` | Flash jump |
 | `S` | Flash Treesitter jump |
 | `r` | Remote Flash in operator-pending mode |
@@ -262,6 +285,7 @@ The config is organized so the main customization points are easy to find.
 | `init.lua` | Entry point that loads options, keymaps, and plugins |
 | `lua/config/options.lua` | Editor behavior such as tabs, scroll offset, wrapping, and popup timing |
 | `lua/config/keymaps.lua` | Global keybindings |
+| `lua/config/lsp_ui.lua` | Shared LSP hover and signature-help floating-window sizing |
 | `lua/plugins/init.lua` | Main plugin list |
 
 ### Add Or Remove Plugins
@@ -280,12 +304,12 @@ To remove a plugin:
 
 ### Change Keymaps
 
-Global mappings are defined in `lua/config/keymaps.lua`.
+Global always-loaded mappings are defined in `lua/config/keymaps.lua`. Plugin-specific mappings are usually declared inside each plugin spec so `lazy.nvim` can load the plugin only when the key is used.
 
 Examples:
 - change the leader key by editing `vim.g.mapleader`
 - change buffer navigation by editing `<S-h>` and `<S-l>`
-- add new shortcuts for Telescope, Git, or diagnostics in the same file
+- add plugin shortcuts in the relevant `lua/plugins/*.lua` spec when they should lazy-load the plugin
 
 LSP-specific mappings are attached in `lua/plugins/lsp.lua` when a language server starts for the current buffer.
 
@@ -311,6 +335,10 @@ This is where you would:
 - change formatter or linter mappings for a filetype
 - adjust save-time formatting behavior
 - add more Treesitter parsers
+
+Tool and parser installs are intentionally not run on every startup:
+- run `:MasonToolsInstall` after changing the Mason tool list
+- run `:TSInstall <parser>` after adding a Treesitter parser
 
 ### Reproducibility Notes
 
