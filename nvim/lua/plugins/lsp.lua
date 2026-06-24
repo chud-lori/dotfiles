@@ -71,6 +71,15 @@ return {
           local opts = { buffer = args.buf, noremap = true, silent = true }
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "pd", function()
+            local ok, telescope = pcall(require, "telescope.builtin")
+
+            if ok then
+              telescope.lsp_definitions()
+            else
+              vim.lsp.buf.definition()
+            end
+          end, vim.tbl_extend("force", opts, { desc = "Pick definition" }))
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
           vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
