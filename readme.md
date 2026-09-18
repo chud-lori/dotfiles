@@ -105,6 +105,7 @@ Install LSP servers and formatters via Mason (inside Neovim):
 | `<leader>gb` | Toggle git blame |
 | `<leader>sv` / `<leader>sh` | Split vertical / horizontal |
 | `<leader>/` | Toggle comment |
+| `<leader>w` | Toggle word wrap |
 | `gd` / `gD` | Go to definition / declaration |
 | `K` | Hover docs |
 | `<space>rn` | Rename symbol |

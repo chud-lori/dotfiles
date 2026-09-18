@@ -38,6 +38,13 @@ keymap.set("n", "<S-l>", "<cmd>bnext<CR>", { desc = "Next buffer" })
 keymap.set("n", "<S-h>", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
 keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Close buffer" })
 
+-- Word wrap toggle (per window; wrap breaks at word boundaries)
+keymap.set("n", "<leader>w", function()
+  vim.wo.wrap = not vim.wo.wrap
+  vim.wo.linebreak = true
+  vim.wo.breakindent = true
+end, { desc = "Toggle word wrap" })
+
 -- Telescope extras
 keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics<CR>", { desc = "Find diagnostics" })
 keymap.set("n", "<leader>fr", "<cmd>Telescope lsp_references<CR>", { desc = "Find references" })
