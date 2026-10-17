@@ -14,6 +14,20 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.nvim_project_mode = vim.fn.argc() == 1 and vim.fn.isdirectory(vim.fn.argv(0)) == 1
 
+-- Only persist a session in project mode (nvim <dir>). Opening a bare file or
+-- plain nvim must not overwrite the project's session with a stray buffer.
+if not vim.g.nvim_project_mode then
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "LazyLoad",
+    callback = function(ev)
+      if ev.data == "persistence.nvim" then
+        pcall(function() require("persistence").stop() end)
+        return true
+      end
+    end,
+  })
+end
+
 -- Your general Neovim options and keymaps
 require("config.options")
 require("config.keymaps")
