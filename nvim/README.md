@@ -165,7 +165,11 @@ This section explains the key plugins that enhance the day-to-day editing experi
     |--------|-------------|
     | `<S-l>` | Move to next buffer |
     | `<S-h>` | Move to previous buffer |
-    | `<leader>bd` | Close current buffer |
+    | `<leader>bd` | Close current buffer, keeping the window open |
+    | `<leader>bo` | Close all other buffers |
+    | `<leader>bl` / `<leader>bh` | Close buffers to the right / left |
+    | `<leader>bc` | Pick a buffer to close by its letter |
+    | `<leader>1` to `<leader>9` | Go to buffer 1 to 9 |
 
 ### Startup Behavior
 
@@ -243,7 +247,11 @@ Leader key: `Space`
 |--------|--------|
 | `<S-l>` | Next buffer |
 | `<S-h>` | Previous buffer |
-| `<leader>bd` | Close buffer |
+| `<leader>bd` | Close buffer, keep window |
+| `<leader>bo` | Close other buffers |
+| `<leader>bl` / `<leader>bh` | Close buffers to the right / left |
+| `<leader>bc` | Pick a buffer to close |
+| `<leader>1`..`<leader>9` | Go to buffer 1..9 |
 | `<leader>gb` | Toggle inline git blame |
 | `<leader>gg` | Open LazyGit |
 
