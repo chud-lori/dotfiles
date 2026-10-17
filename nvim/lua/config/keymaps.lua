@@ -36,7 +36,21 @@ keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 -- Buffer navigation
 keymap.set("n", "<S-l>", "<cmd>bnext<CR>", { desc = "Next buffer" })
 keymap.set("n", "<S-h>", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
-keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Close buffer" })
+-- Show the previous buffer before deleting, so the window and its split stay open.
+keymap.set("n", "<leader>bd", function()
+  if #vim.fn.getbufinfo({ buflisted = 1 }) > 1 then
+    vim.cmd("bprevious | bdelete #")
+  else
+    vim.cmd("bdelete")
+  end
+end, { desc = "Close buffer, keep window" })
+keymap.set("n", "<leader>bo", "<cmd>BufferLineCloseOthers<CR>", { desc = "Close other buffers" })
+keymap.set("n", "<leader>bl", "<cmd>BufferLineCloseRight<CR>", { desc = "Close buffers to the right" })
+keymap.set("n", "<leader>bh", "<cmd>BufferLineCloseLeft<CR>", { desc = "Close buffers to the left" })
+keymap.set("n", "<leader>bc", "<cmd>BufferLinePickClose<CR>", { desc = "Pick a buffer to close" })
+for i = 1, 9 do
+  keymap.set("n", "<leader>" .. i, "<cmd>BufferLineGoToBuffer " .. i .. "<CR>", { desc = "Go to buffer " .. i })
+end
 
 -- Word wrap toggle (per window; wrap breaks at word boundaries)
 keymap.set("n", "<leader>w", function()
