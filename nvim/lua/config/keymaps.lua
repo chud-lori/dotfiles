@@ -14,6 +14,12 @@ keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
 
+-- Move line(s) up/down (shadows marks mj/mk)
+keymap.set("n", "mj", "<cmd>m .+1<CR>==", { desc = "Move line down" })
+keymap.set("n", "mk", "<cmd>m .-2<CR>==", { desc = "Move line up" })
+keymap.set("v", "mj", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+keymap.set("v", "mk", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+
 -- Window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
