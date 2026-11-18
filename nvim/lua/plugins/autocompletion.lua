@@ -23,5 +23,9 @@ return {
                 end,
             },
         })
+
+        -- A completion request per keystroke overloads jdtls on a large
+        -- project, which the nvim-jdtls README calls out directly.
+        cmp.setup.filetype("java", { completion = { keyword_length = 3 } })
     end,
 }
