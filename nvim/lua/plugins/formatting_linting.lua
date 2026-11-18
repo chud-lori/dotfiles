@@ -3,6 +3,13 @@ return {
         "stevearc/conform.nvim",
         dependencies = { "mason.nvim", },
         event = { "BufReadPre", "BufNewFile" },
+        keys = {
+            {
+                "<leader>cf",
+                function() require("conform").format({ async = true, lsp_format = "fallback" }) end,
+                desc = "Format buffer",
+            },
+        },
         config = function()
             require("conform").setup({
                 formatters_by_ft = {

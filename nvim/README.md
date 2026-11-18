@@ -273,6 +273,12 @@ Leader key: `Space`
 |--------|--------|
 | `<leader>/` | Toggle comment |
 | `<leader>mp` | Toggle Markdown render |
+| `<leader>cf` | Format the buffer without saving it |
+| `mj` / `mk` | Move the line, or the visual selection, down / up |
+
+Formatting also runs on every save. `<leader>cf` is for formatting without
+writing the file, and it always formats the whole buffer: prettier has no
+range support, so a visual selection would be ignored.
 
 ### LSP
 
