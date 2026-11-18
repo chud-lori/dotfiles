@@ -343,9 +343,36 @@ Common places to tweak:
 
 Plain `nvim` opens only the Alpha welcome dashboard and does not restore project state. When opening a directory with `nvim .`, the config treats it as a project workspace: it changes Neovim's cwd to that directory, restores any saved session for that cwd, opens NvimTree, and shows the Alpha dashboard when there is no saved file state.
 
+### Java
+
+Java is the one language that does not go through `vim.lsp.enable`. `jdtls`
+needs a per-project workspace and a handful of launch arguments, so it is
+started by `ftplugin/java.lua` with `nvim-jdtls`, which is where that plugin
+documents its setup. `lua/plugins/java.lua` only declares the plugin.
+
+What that file does, and why:
+
+| Setting | Reason |
+|---------|--------|
+| `vim.fs.root(0, { "gradlew", ".git", "mvnw" })` | The marker list nvim-jdtls recommends. |
+| `-configuration <cache>/config` | Without it every project shares Mason's own config directory. |
+| `-data <cache>/workspace` | The index must live outside the repository. |
+| `-Xms1g` / `-Xmx2g` | A large Java repository exhausts the default heap. |
+| `-javaagent:.../lombok.jar` | Added only when the jar exists. Lombok rewrites sources at compile time, so without it jdtls reports generated getters as missing. |
+| `java.configuration.runtimes` | Filled from `$JAVA8_HOME` when it is set, so a project targeting Java 8 resolves against a Java 8 runtime. jdtls itself needs Java 21 or newer. |
+
+Completion is throttled to three characters for `java` only, in
+`lua/plugins/autocompletion.lua`. A request per keystroke overloads jdtls on a
+large project, which the nvim-jdtls README calls out directly.
+
+The first file opened in a project triggers a full Gradle or Maven import and
+will be slow. Later sessions read the cached workspace. Do not disable the
+import to speed it up: it is how dependencies resolve.
+
 ### Change Language Tooling
 
 Language servers are configured in `lua/plugins/lsp.lua`.
+Java is the exception, see the Java section above.
 Formatters and linters are configured in `lua/plugins/formatting_linting.lua`.
 Treesitter parsers are configured in `lua/plugins/treesitter.lua`.
 
